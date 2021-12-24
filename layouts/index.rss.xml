@@ -12,7 +12,7 @@
     {{ with .OutputFormats.Get "RSS" }}
         {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
     {{ end }}
-    {{ range .Paginator.Pages }}
+    {{range (where .Paginator.Pages "Section" "not in" site.Params.invisibleSections)}}
     {{ if and (.IsPage) (.Params.date) }}
         <item>
         <title>{{ .Title }}</title>
